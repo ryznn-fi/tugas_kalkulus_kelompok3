@@ -7,143 +7,144 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --kertas: #f3f6fb;
-    --garis: #d5deec;
-    --tinta: #14213d;
-    --biru: #2748a8;
-    --kuning: #f5c542;
-    --merah: #d6453d;
-    --hijau: #2f8f6b;
-    --putih: #ffffff;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: "Source Serif 4", Georgia, serif;
-    color: var(--tinta);
-    line-height: 1.6;
-    background-color: var(--kertas);
-    background-image:
-      linear-gradient(var(--garis) 1px, transparent 1px),
-      linear-gradient(90deg, var(--garis) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-  h1, h2, h3, button, .label {
-    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  }
-  main { max-width: 920px; margin: 0 auto; padding: 24px 18px 80px; }
-  header { padding: 40px 0 24px; }
-  h1 { font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.05; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
-  header p { max-width: 56ch; font-size: 1.1rem; margin: 0; }
-  section { margin-top: 56px; }
-  h2 { font-size: 1.7rem; margin: 0 0 6px; }
-  .sub { margin: 0 0 20px; max-width: 60ch; }
+:root {
+  --kertas: #f3f6fb;
+  --garis: #d5deec;
+  --tinta: #14213d;
+  --biru: #2748a8;
+  --kuning: #f5c542;
+  --merah: #d6453d;
+  --hijau: #2f8f6b;
+  --putih: #ffffff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Source Serif 4", Georgia, serif;
+  color: var(--tinta);
+  line-height: 1.6;
+  background-color: var(--kertas);
+  background-image:
+    linear-gradient(var(--garis) 1px, transparent 1px),
+    linear-gradient(90deg, var(--garis) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+h1, h2, h3, button, .label {
+  font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+}
+main { max-width: 920px; margin: 0 auto; padding: 24px 18px 80px; }
+header { padding: 40px 0 24px; }
+h1 { font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.05; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+header p { max-width: 56ch; font-size: 1.1rem; margin: 0; }
+section { margin-top: 56px; }
+h2 { font-size: 1.7rem; margin: 0 0 6px; }
+.sub { margin: 0 0 20px; max-width: 60ch; }
 
-  /* ---------- Peta bersarang ---------- */
-  .peta-wrap { display: grid; gap: 20px; grid-template-columns: 1.15fr 1fr; align-items: start; }
-  @media (max-width: 760px) { .peta-wrap { grid-template-columns: 1fr; } }
-  .kotak {
-    border: 2.5px solid var(--tinta);
-    border-radius: 18px;
-    padding: 12px;
-    background: var(--putih);
-    cursor: pointer;
-    position: relative;
-    transition: background .2s, box-shadow .2s;
-  }
-  .kotak > .nama {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-weight: 800;
-    font-size: .95rem;
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-  .kotak:hover { box-shadow: 0 0 0 3px var(--kuning); }
-  .kotak.aktif { background: var(--kuning); box-shadow: 0 0 0 3px var(--tinta); }
-  .kotak.aktif .kotak:not(.aktif) { background: var(--putih); }
-  #k-real { background: #e9efff; }
-  #k-rasional { background: #fff; }
-  .baris { display: grid; grid-template-columns: 2.2fr 1fr; gap: 10px; }
-  #k-irasional { background: #ffe9e6; align-self: stretch; }
-  .tengah { font-size: .85rem; color: #4a5878; margin: 0; }
-  #k-kompleks { background: #eaf6f0; }
+/* ---------- Peta bersarang ---------- */
+.peta-wrap { display: grid; gap: 20px; grid-template-columns: 1.15fr 1fr; align-items: start; }
+@media (max-width: 760px) { .peta-wrap { grid-template-columns: 1fr; } }
+.kotak {
+  border: 2.5px solid var(--tinta);
+  border-radius: 18px;
+  padding: 12px;
+  background: var(--putih);
+  cursor: pointer;
+  position: relative;
+  transition: background .2s, box-shadow .2s;
+}
+.kotak > .nama {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: .95rem;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.kotak:hover { box-shadow: 0 0 0 3px var(--kuning); }
+.kotak.aktif { background: var(--kuning); box-shadow: 0 0 0 3px var(--tinta); }
+.kotak.aktif .kotak:not(.aktif) { background: var(--putih); }
+#k-real { background: #e9efff; }
+#k-rasional { background: #fff; }
+.baris { display: grid; grid-template-columns: 2.2fr 1fr; gap: 10px; }
+#k-irasional { background: #ffe9e6; align-self: stretch; }
+.tengah { font-size: .85rem; color: #4a5878; margin: 0; }
+#k-kompleks { background: #eaf6f0; }
+#k-imajiner { background: #f1eaff; margin-top: 10px; }
 
-  /* ---------- Panel detail ---------- */
-  .detail {
-    background: var(--putih);
-    border: 2.5px solid var(--tinta);
-    border-radius: 18px;
-    padding: 20px;
-    position: sticky;
-    top: 12px;
-    box-shadow: 6px 6px 0 var(--tinta);
-  }
-  .detail h3 { margin: 0 0 4px; font-size: 1.5rem; }
-  .simbol { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; color: var(--biru); font-size: 1rem; }
-  .detail p { margin: 10px 0; }
-  .contoh { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; padding: 0; list-style: none; }
-  .contoh li {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-weight: 600;
-    background: var(--kertas);
-    border: 1.5px solid var(--tinta);
-    border-radius: 999px;
-    padding: 2px 12px;
-  }
-  .bukan { color: var(--merah); }
+/* ---------- Panel detail ---------- */
+.detail {
+  background: var(--putih);
+  border: 2.5px solid var(--tinta);
+  border-radius: 18px;
+  padding: 20px;
+  position: sticky;
+  top: 12px;
+  box-shadow: 6px 6px 0 var(--tinta);
+}
+.detail h3 { margin: 0 0 4px; font-size: 1.5rem; }
+.simbol { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; color: var(--biru); font-size: 1rem; }
+.detail p { margin: 10px 0; }
+.contoh { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; padding: 0; list-style: none; }
+.contoh li {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 600;
+  background: var(--kertas);
+  border: 1.5px solid var(--tinta);
+  border-radius: 999px;
+  padding: 2px 12px;
+}
+.bukan { color: var(--merah); }
 
-  /* ---------- Garis bilangan ---------- */
-  .garis-bilangan { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 16px; overflow-x: auto; }
-  .garis-bilangan svg { min-width: 640px; width: 100%; height: auto; display: block; }
-  .legenda { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: .9rem; }
-  .legenda span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; background: var(--c); border: 1.5px solid var(--tinta); }
+/* ---------- Garis bilangan ---------- */
+.garis-bilangan { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 16px; overflow-x: auto; }
+.garis-bilangan svg { min-width: 640px; width: 100%; height: auto; display: block; }
+.legenda { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: .9rem; }
+.legenda span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; background: var(--c); border: 1.5px solid var(--tinta); }
 
-  /* ---------- Pengecek ---------- */
-  .cek { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; box-shadow: 6px 6px 0 var(--tinta); }
-  .cek-baris { display: flex; gap: 10px; flex-wrap: wrap; }
-  input[type=text] {
-    flex: 1 1 200px;
-    font: 600 1.2rem "Bricolage Grotesque", sans-serif;
-    padding: 10px 14px;
-    border: 2.5px solid var(--tinta);
-    border-radius: 12px;
-    background: var(--kertas);
-    color: var(--tinta);
-  }
-  button {
-    font-weight: 600;
-    font-size: 1rem;
-    border: 2.5px solid var(--tinta);
-    background: var(--kuning);
-    color: var(--tinta);
-    border-radius: 12px;
-    padding: 10px 18px;
-    cursor: pointer;
-  }
-  button:hover { background: #ffd966; }
-  button.kecil { padding: 4px 12px; background: var(--putih); font-size: .9rem; }
-  button.kecil:hover { background: var(--kuning); }
-  :focus-visible { outline: 3px solid var(--biru); outline-offset: 2px; }
-  .contoh-klik { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .95rem; }
-  #hasil { margin-top: 18px; }
-  .hasil-judul { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.3rem; margin: 0 0 8px; }
-  .chip-grup { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; padding: 4px 14px; border-radius: 999px; border: 2px solid var(--tinta); }
-  .chip.ya { background: var(--hijau); color: #fff; }
-  .chip.tidak { background: var(--putih); color: #7b8498; border-style: dashed; text-decoration: line-through; }
-  .catatan { margin-top: 10px; font-size: .95rem; }
+/* ---------- Pengecek ---------- */
+.cek { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; box-shadow: 6px 6px 0 var(--tinta); }
+.cek-baris { display: flex; gap: 10px; flex-wrap: wrap; }
+input[type=text] {
+  flex: 1 1 200px;
+  font: 600 1.2rem "Bricolage Grotesque", sans-serif;
+  padding: 10px 14px;
+  border: 2.5px solid var(--tinta);
+  border-radius: 12px;
+  background: var(--kertas);
+  color: var(--tinta);
+}
+button {
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2.5px solid var(--tinta);
+  background: var(--kuning);
+  color: var(--tinta);
+  border-radius: 12px;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+button:hover { background: #ffd966; }
+button.kecil { padding: 4px 12px; background: var(--putih); font-size: .9rem; }
+button.kecil:hover { background: var(--kuning); }
+:focus-visible { outline: 3px solid var(--biru); outline-offset: 2px; }
+.contoh-klik { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .95rem; }
+#hasil { margin-top: 18px; }
+.hasil-judul { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.3rem; margin: 0 0 8px; }
+.chip-grup { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; padding: 4px 14px; border-radius: 999px; border: 2px solid var(--tinta); }
+.chip.ya { background: var(--hijau); color: #fff; }
+.chip.tidak { background: var(--putih); color: #7b8498; border-style: dashed; text-decoration: line-through; }
+.catatan { margin-top: 10px; font-size: .95rem; }
 
-  /* ---------- Kuis ---------- */
-  .kuis { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; }
-  .opsi { display: grid; gap: 10px; margin-top: 14px; }
-  .opsi button { text-align: left; background: var(--kertas); }
-  .opsi button.benar { background: var(--hijau); color: #fff; }
-  .opsi button.salah { background: var(--merah); color: #fff; }
-  .skor { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; }
-  footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+/* ---------- Kuis ---------- */
+.kuis { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; }
+.opsi { display: grid; gap: 10px; margin-top: 14px; }
+.opsi button { text-align: left; background: var(--kertas); }
+.opsi button.benar { background: var(--hijau); color: #fff; }
+.opsi button.salah { background: var(--merah); color: #fff; }
+.skor { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; }
+footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
@@ -182,6 +183,10 @@
             <p class="tengah">π, √2, e</p>
           </div>
         </div>
+      </div>
+      <div class="kotak" id="k-imajiner" data-id="imajiner" tabindex="0" role="button">
+        <span class="nama">Imajiner (bi)</span>
+        <p class="tengah">i, 3i, √-9</p>
       </div>
     </div>
 
@@ -274,6 +279,11 @@ const MATERI = {
     arti: "Gabungan bilangan rasional dan irasional. Setiap bilangan real punya tempat tepat di garis bilangan.",
     contoh: ["-2", "0", "1/3", "√5", "π"], bukan: ["√-1", "2 + 3i"]
   },
+  imajiner: {
+    nama: "Bilangan Imajiner", simbol: "{ b·i | b real, b ≠ 0 }, dengan i = √-1",
+    arti: "Bilangan yang kuadratnya negatif. Muncul dari akar bilangan negatif, misalnya √-9 = √9 · √-1 = 3i. Tidak ada di garis bilangan real. Bilangan imajiner adalah kompleks dengan bagian real = 0.",
+    contoh: ["i", "3i", "-2i", "√-9 = 3i", "√-4 = 2i"], bukan: ["5", "√2", "0"]
+  },
   kompleks: {
     nama: "Bilangan Kompleks", simbol: "ℂ = { a + bi | a, b real, i² = -1 }",
     arti: "Bilangan yang punya bagian real (a) dan bagian imajiner (b·i), dengan i = √-1. Semua bilangan real juga kompleks, yaitu saat b = 0.",
@@ -352,7 +362,7 @@ function analisis(teks) {
   let m = t.match(/^(?:√|sqrt\()(-?\d+(?:\.\d+)?)\)?$/);
   if (m) {
     const n = parseFloat(m[1]);
-    if (n < 0) return { tampil: `√${n}`, jenis: "kompleks", catatan: `Akar bilangan negatif tidak real. √${n} = ${Math.sqrt(-n)}i (bilangan imajiner).` };
+    if (n < 0) return { tampil: `√${n}`, jenis: "kompleks", catatan: `Akar bilangan negatif tidak real. √${n} = √${-n} · √-1 = ${Number.isInteger(Math.sqrt(-n)) ? Math.sqrt(-n) : "√" + (-n)}i, yaitu bilangan imajiner (dan juga kompleks).` };
     const r = Math.sqrt(n);
     if (Number.isInteger(n) && Number.isInteger(r))
       return { tampil: `√${n}`, jenis: "angka", nilai: r, catatan: `√${n} = ${r}, jadi ini sebenarnya bilangan ${r} biasa.` };
@@ -379,8 +389,8 @@ function analisis(teks) {
 }
 
 function himpunanDari(h) {
-  const hasil = { asli: false, cacah: false, bulat: false, rasional: false, irasional: false, real: false, kompleks: true };
-  if (h.jenis === "kompleks") { hasil.kompleks = true; return hasil; }
+  const hasil = { asli: false, cacah: false, bulat: false, rasional: false, irasional: false, real: false, imajiner: false, kompleks: true };
+  if (h.jenis === "kompleks") { hasil.imajiner = true; return hasil; }
   hasil.real = true;
   if (h.jenis === "irasional") { hasil.irasional = true; return hasil; }
   hasil.rasional = true;
@@ -393,7 +403,7 @@ function himpunanDari(h) {
   return hasil;
 }
 
-const URUTAN = ["asli", "cacah", "bulat", "rasional", "irasional", "real", "kompleks"];
+const URUTAN = ["asli", "cacah", "bulat", "rasional", "irasional", "real", "imajiner", "kompleks"];
 
 function cek(teks) {
   const out = document.getElementById("hasil");
