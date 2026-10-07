@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peta Bilangan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Source+Serif+4:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kertas: #f3f6fb;
+    --garis: #d5deec;
+    --tinta: #14213d;
+    --biru: #2748a8;
+    --kuning: #f5c542;
+    --merah: #d6453d;
+    --hijau: #2f8f6b;
+    --putih: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--tinta);
+    line-height: 1.6;
+    background-color: var(--kertas);
+    background-image:
+      linear-gradient(var(--garis) 1px, transparent 1px),
+      linear-gradient(90deg, var(--garis) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  h1, h2, h3, button, .label {
+    font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 920px; margin: 0 auto; padding: 24px 18px 80px; }
+  header { padding: 40px 0 24px; }
+  h1 { font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.05; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.02em; }
+  header p { max-width: 56ch; font-size: 1.1rem; margin: 0; }
+  section { margin-top: 56px; }
+  h2 { font-size: 1.7rem; margin: 0 0 6px; }
+  .sub { margin: 0 0 20px; max-width: 60ch; }
+
+  /* ---------- Peta bersarang ---------- */
+  .peta-wrap { display: grid; gap: 20px; grid-template-columns: 1.15fr 1fr; align-items: start; }
+  @media (max-width: 760px) { .peta-wrap { grid-template-columns: 1fr; } }
+  .kotak {
+    border: 2.5px solid var(--tinta);
+    border-radius: 18px;
+    padding: 12px;
+    background: var(--putih);
+    cursor: pointer;
+    position: relative;
+    transition: background .2s, box-shadow .2s;
+  }
+  .kotak > .nama {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 800;
+    font-size: .95rem;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .kotak:hover { box-shadow: 0 0 0 3px var(--kuning); }
+  .kotak.aktif { background: var(--kuning); box-shadow: 0 0 0 3px var(--tinta); }
+  .kotak.aktif .kotak:not(.aktif) { background: var(--putih); }
+  #k-real { background: #e9efff; }
+  #k-rasional { background: #fff; }
+  .baris { display: grid; grid-template-columns: 2.2fr 1fr; gap: 10px; }
+  #k-irasional { background: #ffe9e6; align-self: stretch; }
+  .tengah { font-size: .85rem; color: #4a5878; margin: 0; }
+  #k-kompleks { background: #eaf6f0; }
+
+  /* ---------- Panel detail ---------- */
+  .detail {
+    background: var(--putih);
+    border: 2.5px solid var(--tinta);
+    border-radius: 18px;
+    padding: 20px;
+    position: sticky;
+    top: 12px;
+    box-shadow: 6px 6px 0 var(--tinta);
+  }
+  .detail h3 { margin: 0 0 4px; font-size: 1.5rem; }
+  .simbol { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; color: var(--biru); font-size: 1rem; }
+  .detail p { margin: 10px 0; }
+  .contoh { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; padding: 0; list-style: none; }
+  .contoh li {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 600;
+    background: var(--kertas);
+    border: 1.5px solid var(--tinta);
+    border-radius: 999px;
+    padding: 2px 12px;
+  }
+  .bukan { color: var(--merah); }
+
+  /* ---------- Garis bilangan ---------- */
+  .garis-bilangan { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 16px; overflow-x: auto; }
+  .garis-bilangan svg { min-width: 640px; width: 100%; height: auto; display: block; }
+  .legenda { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: .9rem; }
+  .legenda span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; background: var(--c); border: 1.5px solid var(--tinta); }
+
+  /* ---------- Pengecek ---------- */
+  .cek { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; box-shadow: 6px 6px 0 var(--tinta); }
+  .cek-baris { display: flex; gap: 10px; flex-wrap: wrap; }
+  input[type=text] {
+    flex: 1 1 200px;
+    font: 600 1.2rem "Bricolage Grotesque", sans-serif;
+    padding: 10px 14px;
+    border: 2.5px solid var(--tinta);
+    border-radius: 12px;
+    background: var(--kertas);
+    color: var(--tinta);
+  }
+  button {
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2.5px solid var(--tinta);
+    background: var(--kuning);
+    color: var(--tinta);
+    border-radius: 12px;
+    padding: 10px 18px;
+    cursor: pointer;
+  }
+  button:hover { background: #ffd966; }
+  button.kecil { padding: 4px 12px; background: var(--putih); font-size: .9rem; }
+  button.kecil:hover { background: var(--kuning); }
+  :focus-visible { outline: 3px solid var(--biru); outline-offset: 2px; }
+  .contoh-klik { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .95rem; }
+  #hasil { margin-top: 18px; }
+  .hasil-judul { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.3rem; margin: 0 0 8px; }
+  .chip-grup { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; padding: 4px 14px; border-radius: 999px; border: 2px solid var(--tinta); }
+  .chip.ya { background: var(--hijau); color: #fff; }
+  .chip.tidak { background: var(--putih); color: #7b8498; border-style: dashed; text-decoration: line-through; }
+  .catatan { margin-top: 10px; font-size: .95rem; }
+
+  /* ---------- Kuis ---------- */
+  .kuis { background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 18px; padding: 20px; }
+  .opsi { display: grid; gap: 10px; margin-top: 14px; }
+  .opsi button { text-align: left; background: var(--kertas); }
+  .opsi button.benar { background: var(--hijau); color: #fff; }
+  .opsi button.salah { background: var(--merah); color: #fff; }
+  .skor { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; }
+  footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Peta Bilangan</h1>
+  <p>Semua bilangan punya "rumahnya" masing-masing. Ketuk kotak pada peta untuk melihat penjelasan, coba cek bilanganmu sendiri, lalu uji pemahamanmu lewat kuis.</p>
+</header>
+
+<!-- 1. PETA -->
+<section id="peta">
+  <h2>1. Peta himpunan bilangan</h2>
+  <p class="sub">Bilangan yang ada di kotak dalam juga termasuk anggota kotak-kotak di luarnya.</p>
+
+  <div class="peta-wrap">
+    <div class="kotak" id="k-kompleks" data-id="kompleks" tabindex="0" role="button">
+      <span class="nama">Kompleks (ℂ)</span>
+      <div class="kotak" id="k-real" data-id="real" tabindex="0" role="button">
+        <span class="nama">Real (ℝ)</span>
+        <div class="baris">
+          <div class="kotak" id="k-rasional" data-id="rasional" tabindex="0" role="button">
+            <span class="nama">Rasional (ℚ)</span>
+            <div class="kotak" id="k-bulat" data-id="bulat" tabindex="0" role="button">
+              <span class="nama">Bulat (ℤ)</span>
+              <div class="kotak" id="k-cacah" data-id="cacah" tabindex="0" role="button">
+                <span class="nama">Cacah (C)</span>
+                <div class="kotak" id="k-asli" data-id="asli" tabindex="0" role="button">
+                  <span class="nama">Asli (ℕ)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="kotak" id="k-irasional" data-id="irasional" tabindex="0" role="button">
+            <span class="nama">Irasional</span>
+            <p class="tengah">π, √2, e</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="detail" id="detail" aria-live="polite"></aside>
+  </div>
+</section>
+
+<!-- 2. GARIS BILANGAN -->
+<section id="garis">
+  <h2>2. Letaknya di garis bilangan</h2>
+  <p class="sub">Semua bilangan real bisa digambar pada satu garis lurus.</p>
+  <div class="garis-bilangan">
+    <svg viewBox="0 0 700 150" role="img" aria-label="Garis bilangan dari -3 sampai 4 dengan contoh bilangan">
+      <line x1="30" y1="80" x2="670" y2="80" stroke="#14213d" stroke-width="3"/>
+      <polygon points="670,80 656,72 656,88" fill="#14213d"/>
+      <polygon points="30,80 44,72 44,88" fill="#14213d"/>
+      <g id="tick"></g>
+    </svg>
+  </div>
+  <div class="legenda">
+    <span style="--c:#2748a8">Asli</span>
+    <span style="--c:#f5c542">Nol (cacah)</span>
+    <span style="--c:#2f8f6b">Bulat negatif</span>
+    <span style="--c:#8f5fd6">Pecahan (rasional)</span>
+    <span style="--c:#d6453d">Irasional</span>
+  </div>
+</section>
+
+<!-- 3. PENGECEK -->
+<section id="cek">
+  <h2>3. Cek bilanganmu</h2>
+  <p class="sub">Ketik bilangan, misalnya <b>7</b>, <b>-4</b>, <b>0.75</b>, <b>3/8</b>, <b>√2</b>, <b>√16</b>, <b>π</b>, atau <b>√-9</b>.</p>
+  <div class="cek">
+    <div class="cek-baris">
+      <input type="text" id="input" placeholder="Ketik bilangan..." aria-label="Masukkan bilangan" autocomplete="off">
+      <button id="btnCek">Cek</button>
+    </div>
+    <div class="contoh-klik" id="contohKlik">Coba:</div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- 4. KUIS -->
+<section id="kuis">
+  <h2>4. Kuis singkat</h2>
+  <div class="kuis">
+    <div class="skor" id="skor"></div>
+    <p id="soal" style="font-size:1.15rem;margin:8px 0 0"></p>
+    <div class="opsi" id="opsi"></div>
+    <p id="umpan" class="catatan"></p>
+    <button id="btnLanjut" style="display:none;margin-top:8px">Soal berikutnya</button>
+  </div>
+</section>
+
+<footer>Media pembelajaran: Jenis-jenis Bilangan.</footer>
+</main>
+
+<script>
+/* =========================================================
+   DATA MATERI  (edit di sini kalau mau ubah isi penjelasan)
+   ========================================================= */
+const MATERI = {
+  asli: {
+    nama: "Bilangan Asli", simbol: "ℕ = {1, 2, 3, 4, ...}",
+    arti: "Bilangan yang dipakai untuk menghitung benda, dimulai dari 1 dan terus bertambah satu-satu.",
+    contoh: ["1", "2", "10", "256"], bukan: ["0", "-3", "1/2"]
+  },
+  cacah: {
+    nama: "Bilangan Cacah", simbol: "C = {0, 1, 2, 3, ...}",
+    arti: "Bilangan asli ditambah nol. Dipakai ketika 'tidak ada' juga perlu dicatat, misalnya 0 apel.",
+    contoh: ["0", "1", "7", "100"], bukan: ["-1", "0,5"]
+  },
+  bulat: {
+    nama: "Bilangan Bulat", simbol: "ℤ = {..., -2, -1, 0, 1, 2, ...}",
+    arti: "Bilangan cacah ditambah lawannya (bilangan negatif). Tidak ada bagian pecahan atau desimal.",
+    contoh: ["-5", "-1", "0", "8"], bukan: ["1/2", "0,3", "√2"]
+  },
+  rasional: {
+    nama: "Bilangan Rasional", simbol: "ℚ = { a/b | a, b bulat, b ≠ 0 }",
+    arti: "Bilangan yang bisa ditulis sebagai pecahan a/b. Bentuk desimalnya berhenti (0,25) atau berulang (0,333...). Semua bilangan bulat juga rasional, karena 5 = 5/1.",
+    contoh: ["1/2", "-3/4", "0,75", "0,333...", "5"], bukan: ["π", "√2"]
+  },
+  irasional: {
+    nama: "Bilangan Irasional", simbol: "ℚ' (bukan rasional)",
+    arti: "Bilangan real yang tidak bisa ditulis sebagai pecahan a/b. Desimalnya tak berhenti dan tak berpola.",
+    contoh: ["π = 3,14159...", "√2 = 1,41421...", "e = 2,71828...", "√3"], bukan: ["√4 (hasilnya 2)", "0,5", "1/3"]
+  },
+  real: {
+    nama: "Bilangan Real", simbol: "ℝ = ℚ ∪ ℚ'",
+    arti: "Gabungan bilangan rasional dan irasional. Setiap bilangan real punya tempat tepat di garis bilangan.",
+    contoh: ["-2", "0", "1/3", "√5", "π"], bukan: ["√-1", "2 + 3i"]
+  },
+  kompleks: {
+    nama: "Bilangan Kompleks", simbol: "ℂ = { a + bi | a, b real, i² = -1 }",
+    arti: "Bilangan yang punya bagian real (a) dan bagian imajiner (b·i), dengan i = √-1. Semua bilangan real juga kompleks, yaitu saat b = 0.",
+    contoh: ["3 + 2i", "i", "-4i", "5 (karena 5 + 0i)"], bukan: []
+  }
+};
+
+/* =========================================================
+   1. PETA INTERAKTIF
+   ========================================================= */
+const detail = document.getElementById("detail");
+
+function tampilDetail(id) {
+  const m = MATERI[id];
+  document.querySelectorAll(".kotak").forEach(k => k.classList.toggle("aktif", k.dataset.id === id));
+  detail.innerHTML = `
+    <h3>${m.nama}</h3>
+    <div class="simbol">${m.simbol}</div>
+    <p>${m.arti}</p>
+    <b>Contoh:</b>
+    <ul class="contoh">${m.contoh.map(c => `<li>${c}</li>`).join("")}</ul>
+    ${m.bukan.length ? `<p class="bukan"><b>Bukan anggota:</b> ${m.bukan.join(", ")}</p>` : ""}
+  `;
+}
+
+document.querySelectorAll(".kotak").forEach(k => {
+  k.addEventListener("click", e => { e.stopPropagation(); tampilDetail(k.dataset.id); });
+  k.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); tampilDetail(k.dataset.id); }
+  });
+});
+detail.innerHTML = `<h3>Ketuk sebuah kotak</h3><p>Penjelasan, simbol, dan contoh akan muncul di sini.</p>`;
+
+/* =========================================================
+   2. GARIS BILANGAN
+   ========================================================= */
+(function gambarGaris() {
+  const g = document.getElementById("tick");
+  const X = v => 130 + (v + 3) * 85;       // -3 -> 130 ... 4 -> 725 (dipotong oleh viewBox, jadi diskalakan)
+  const skala = v => 60 + (v + 3) * 85;    // -3 -> 60, 4 -> 655
+  let s = "";
+  for (let v = -3; v <= 4; v++) {
+    const warna = v > 0 ? "#2748a8" : v === 0 ? "#f5c542" : "#2f8f6b";
+    s += `<line x1="${skala(v)}" y1="72" x2="${skala(v)}" y2="88" stroke="#14213d" stroke-width="2"/>
+          <circle cx="${skala(v)}" cy="80" r="7" fill="${warna}" stroke="#14213d" stroke-width="2"/>
+          <text x="${skala(v)}" y="112" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="16" fill="#14213d">${v}</text>`;
+  }
+  const titik = [
+    [-1.5, "-3/2", "#8f5fd6"], [0.5, "1/2", "#8f5fd6"], [Math.SQRT2, "√2", "#d6453d"], [Math.PI, "π", "#d6453d"]
+  ];
+  titik.forEach(([v, t, w], i) => {
+    s += `<circle cx="${skala(v)}" cy="80" r="7" fill="${w}" stroke="#14213d" stroke-width="2"/>
+          <text x="${skala(v)}" y="${i % 2 ? 40 : 56}" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="16" fill="${w}">${t}</text>`;
+  });
+  g.innerHTML = s;
+})();
+
+/* =========================================================
+   3. PENGECEK BILANGAN
+   ========================================================= */
+function adalahPrima(n) {
+  if (n < 2) return false;
+  for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
+  return true;
+}
+
+function analisis(teks) {
+  let t = teks.trim().toLowerCase().replace(/,/g, ".").replace(/\s+/g, "");
+  if (!t) return { error: "Ketik bilangan dulu." };
+
+  // Konstanta irasional
+  if (t === "π" || t === "pi") return { tampil: "π", jenis: "irasional", nilai: Math.PI, catatan: "π ≈ 3,14159... desimalnya tak berhenti dan tak berpola." };
+  if (t === "e")              return { tampil: "e", jenis: "irasional", nilai: Math.E,  catatan: "e ≈ 2,71828... adalah bilangan Euler." };
+
+  // Akar: √n atau sqrt(n)
+  let m = t.match(/^(?:√|sqrt\()(-?\d+(?:\.\d+)?)\)?$/);
+  if (m) {
+    const n = parseFloat(m[1]);
+    if (n < 0) return { tampil: `√${n}`, jenis: "kompleks", catatan: `Akar bilangan negatif tidak real. √${n} = ${Math.sqrt(-n)}i (bilangan imajiner).` };
+    const r = Math.sqrt(n);
+    if (Number.isInteger(n) && Number.isInteger(r))
+      return { tampil: `√${n}`, jenis: "angka", nilai: r, catatan: `√${n} = ${r}, jadi ini sebenarnya bilangan ${r} biasa.` };
+    if (Number.isInteger(n)) return { tampil: `√${n}`, jenis: "irasional", nilai: r, catatan: `${n} bukan kuadrat sempurna, maka √${n} ≈ ${r.toFixed(5)}... tidak bisa jadi pecahan.` };
+    return { tampil: `√${n}`, jenis: "angka", nilai: r, catatan: "Hasil akar desimal: dicek berdasarkan nilainya." };
+  }
+
+  // Pecahan a/b
+  m = t.match(/^(-?\d+)\/(-?\d+)$/);
+  if (m) {
+    const a = parseInt(m[1]), b = parseInt(m[2]);
+    if (b === 0) return { error: "Penyebut tidak boleh nol. Pembagian dengan nol tidak terdefinisi." };
+    return { tampil: `${a}/${b}`, jenis: "angka", nilai: a / b, pecahan: true,
+             catatan: a % b === 0 ? `${a}/${b} = ${a / b}, jadi nilainya bilangan bulat.` : `Bisa ditulis sebagai a/b dengan b ≠ 0, maka rasional.` };
+  }
+
+  // Bilangan biasa / desimal
+  if (/^-?\d+(\.\d+)?$/.test(t)) {
+    const v = parseFloat(t);
+    return { tampil: teks.trim(), jenis: "angka", nilai: v,
+             catatan: Number.isInteger(v) ? "" : "Desimal yang berhenti selalu bisa dijadikan pecahan, maka rasional." };
+  }
+  return { error: "Format belum dikenali. Coba: 7, -4, 0.75, 3/8, √2, √16, π, atau √-9." };
+}
+
+function himpunanDari(h) {
+  const hasil = { asli: false, cacah: false, bulat: false, rasional: false, irasional: false, real: false, kompleks: true };
+  if (h.jenis === "kompleks") { hasil.kompleks = true; return hasil; }
+  hasil.real = true;
+  if (h.jenis === "irasional") { hasil.irasional = true; return hasil; }
+  hasil.rasional = true;
+  const v = h.nilai;
+  if (Number.isInteger(v)) {
+    hasil.bulat = true;
+    if (v >= 0) hasil.cacah = true;
+    if (v >= 1) hasil.asli = true;
+  }
+  return hasil;
+}
+
+const URUTAN = ["asli", "cacah", "bulat", "rasional", "irasional", "real", "kompleks"];
+
+function cek(teks) {
+  const out = document.getElementById("hasil");
+  const h = analisis(teks);
+  if (h.error) { out.innerHTML = `<p class="catatan bukan">${h.error}</p>`; return; }
+  const s = himpunanDari(h);
+  let tambahan = "";
+  if (s.bulat) {
+    const n = h.nilai;
+    const sifat = [n % 2 === 0 ? "genap" : "ganjil"];
+    if (n >= 2) sifat.push(adalahPrima(n) ? "prima" : "komposit");
+    tambahan = `<p class="catatan"><b>Sifat bilangan bulat ini:</b> ${sifat.join(", ")}.</p>`;
+  }
+  out.innerHTML = `
+    <p class="hasil-judul">${h.tampil} termasuk:</p>
+    <div class="chip-grup">
+      ${URUTAN.map(k => `<span class="chip ${s[k] ? "ya" : "tidak"}">${MATERI[k].nama.replace("Bilangan ", "")}</span>`).join("")}
+    </div>
+    ${h.catatan ? `<p class="catatan">${h.catatan}</p>` : ""}
+    ${tambahan}`;
+}
+
+document.getElementById("btnCek").addEventListener("click", () => cek(document.getElementById("input").value));
+document.getElementById("input").addEventListener("keydown", e => { if (e.key === "Enter") cek(e.target.value); });
+
+["7", "0", "-4", "0.75", "3/8", "√2", "√16", "π", "√-9"].forEach(c => {
+  const b = document.createElement("button");
+  b.className = "kecil"; b.textContent = c;
+  b.addEventListener("click", () => { document.getElementById("input").value = c; cek(c); });
+  document.getElementById("contohKlik").appendChild(b);
+});
+
+/* =========================================================
+   4. KUIS
+   ========================================================= */
+const SOAL = [
+  { q: "Bilangan terkecil yang termasuk bilangan asli adalah...", o: ["0", "1", "-1", "2"], a: 1, p: "Bilangan asli dimulai dari 1. Kalau 0 ikut, namanya bilangan cacah." },
+  { q: "Manakah yang BUKAN bilangan bulat?", o: ["-7", "0", "3/4", "12"], a: 2, p: "3/4 punya bagian pecahan, jadi hanya rasional." },
+  { q: "√9 termasuk bilangan...", o: ["Irasional", "Bulat (hasilnya 3)", "Imajiner", "Bukan bilangan real"], a: 1, p: "9 kuadrat sempurna, jadi √9 = 3." },
+  { q: "Bilangan yang desimalnya tak berhenti dan tak berpola disebut...", o: ["Rasional", "Cacah", "Irasional", "Asli"], a: 2, p: "Contohnya π dan √2." },
+  { q: "Bilangan √-4 termasuk...", o: ["Bilangan real", "Bilangan kompleks (imajiner)", "Bilangan bulat", "Bilangan cacah"], a: 1, p: "√-4 = 2i, tidak ada di garis bilangan real." },
+  { q: "Himpunan yang mencakup semua bilangan bulat adalah...", o: ["Asli", "Cacah", "Rasional", "Prima"], a: 2, p: "Setiap bilangan bulat n bisa ditulis n/1, jadi rasional." }
+];
+let idx = 0, skor = 0, terjawab = false;
+
+function tampilSoal() {
+  terjawab = false;
+  const s = SOAL[idx];
+  document.getElementById("skor").textContent = `Soal ${idx + 1} dari ${SOAL.length}   |   Skor: ${skor}`;
+  document.getElementById("soal").textContent = s.q;
+  document.getElementById("umpan").textContent = "";
+  document.getElementById("btnLanjut").style.display = "none";
+  const box = document.getElementById("opsi");
+  box.innerHTML = "";
+  s.o.forEach((teks, i) => {
+    const b = document.createElement("button");
+    b.textContent = teks;
+    b.addEventListener("click", () => jawab(i, b));
+    box.appendChild(b);
+  });
+}
+
+function jawab(i, tombol) {
+  if (terjawab) return;
+  terjawab = true;
+  const s = SOAL[idx];
+  const semua = document.querySelectorAll("#opsi button");
+  semua[s.a].classList.add("benar");
+  if (i === s.a) { skor++; document.getElementById("umpan").textContent = "Benar. " + s.p; }
+  else { tombol.classList.add("salah"); document.getElementById("umpan").textContent = "Belum tepat. " + s.p; }
+  document.getElementById("skor").textContent = `Soal ${idx + 1} dari ${SOAL.length}   |   Skor: ${skor}`;
+  const lanjut = document.getElementById("btnLanjut");
+  lanjut.textContent = idx === SOAL.length - 1 ? "Lihat hasil" : "Soal berikutnya";
+  lanjut.style.display = "inline-block";
+}
+
+document.getElementById("btnLanjut").addEventListener("click", () => {
+  if (idx < SOAL.length - 1) { idx++; tampilSoal(); return; }
+  document.getElementById("skor").textContent = `Selesai. Skor akhir: ${skor} dari ${SOAL.length}`;
+  document.getElementById("soal").textContent = skor === SOAL.length ? "Sempurna! Kamu paham semua jenis bilangan." : "Coba ulangi dan lihat lagi peta di atas.";
+  document.getElementById("opsi").innerHTML = "";
+  document.getElementById("umpan").textContent = "";
+  const b = document.getElementById("btnLanjut");
+  b.textContent = "Ulangi kuis";
+  b.onclick = () => location.reload();
+});
+
+tampilSoal();
+</script>
+</body>
+</html>
