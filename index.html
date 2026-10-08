@@ -18,7 +18,7 @@
   --putih: #ffffff;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 body {
   margin: 0;
   font-family: "Source Serif 4", Georgia, serif;
@@ -143,6 +143,57 @@ button.kecil:hover { background: var(--kuning); }
 .opsi button.benar { background: var(--hijau); color: #fff; }
 .opsi button.salah { background: var(--merah); color: #fff; }
 .skor { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; }
+/* ---------- Kelompok ---------- */
+.kelompok { margin-top: 64px; background: var(--putih); border: 2.5px solid var(--tinta); border-radius: 24px; overflow: hidden; box-shadow: 8px 8px 0 var(--tinta); }
+.kel-kepala { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 22px 24px; background: linear-gradient(135deg, var(--kuning), #ffdf7a); border-bottom: 2.5px solid var(--tinta); }
+.kel-no { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 2.6rem; line-height: 1; width: 64px; height: 64px; display: grid; place-items: center; background: var(--tinta); color: var(--kuning); border-radius: 18px; transform: rotate(-4deg); }
+.kelompok h2 { margin: 0; background: none; display: block; font-size: 1.7rem; line-height: 1.1; }
+.kel-kepala p { margin: 2px 0 0; font-size: .95rem; }
+.kel-jumlah { margin-left: auto; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; background: var(--putih); border: 2px solid var(--tinta); border-radius: 999px; padding: 4px 16px; }
+.kelompok ol { margin: 0; padding: 22px 24px 26px; list-style: none; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.kelompok li { display: flex; align-items: center; gap: 14px; background: var(--kertas); border: 2px solid var(--tinta); border-radius: 16px; padding: 12px 14px; transition: transform .2s, box-shadow .2s; }
+.kelompok li:hover { transform: translateY(-3px); box-shadow: 4px 4px 0 var(--tinta); }
+.avatar { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 2.5px solid var(--tinta); font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; color: #fff; background: var(--c); }
+.kelompok li:nth-child(1) { --c: #2748a8; }
+.kelompok li:nth-child(2) { --c: #d6453d; }
+.kelompok li:nth-child(3) { --c: #2f8f6b; }
+.kelompok li:nth-child(4) { --c: #7a4fd6; }
+.kelompok li:nth-child(5) { --c: #e08a1e; }
+.kelompok li:nth-child(6) { --c: #148fa3; }
+.orang { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.orang b { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.02rem; }
+.orang small { color: #4a5878; font-size: .85rem; }
+.orang small span { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; color: var(--biru); }
+
+/* ===== Percantik ===== */
+header { position: relative; overflow: hidden; margin-top: 12px; padding: 44px 28px 36px; background: linear-gradient(135deg, #14213d 0%, #2748a8 100%); color: #fff; border: 2.5px solid var(--tinta); border-radius: 24px; box-shadow: 8px 8px 0 var(--kuning); }
+header > *:not(.melayang) { position: relative; }
+header p { color: #dbe5ff; }
+header h1 span { color: var(--kuning); }
+.melayang { position: absolute; inset: 0; pointer-events: none; }
+.melayang i { position: absolute; font-style: normal; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; color: rgba(255,255,255,.13); font-size: var(--s); left: var(--x); top: var(--y); animation: apung 7s ease-in-out infinite; animation-delay: var(--d); }
+@keyframes apung { 50% { transform: translateY(-14px) rotate(6deg); } }
+nav { position: sticky; top: 8px; z-index: 10; display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin: 20px auto 0; padding: 5px; width: fit-content; max-width: 100%; background: rgba(255,255,255,.92); backdrop-filter: blur(6px); border: 2.5px solid var(--tinta); border-radius: 999px; }
+nav a { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; font-size: .9rem; color: var(--tinta); text-decoration: none; padding: 4px 14px; border-radius: 999px; }
+nav a:hover, nav a.aktif { background: var(--kuning); }
+h2 { display: inline-block; background: linear-gradient(transparent 62%, var(--kuning) 62%); }
+.kotak:hover { transform: translateY(-2px); }
+#k-bulat { background: #f5f8ff; }
+#k-cacah { background: #fff8e3; }
+#k-imajiner { border-style: dashed; }
+.detail { border-top: 12px solid var(--biru); }
+.detail > * { animation: masuk .3s ease both; }
+@keyframes masuk { from { opacity: 0; transform: translateY(6px); } }
+button { box-shadow: 3px 3px 0 var(--tinta); transition: transform .1s, box-shadow .1s, background .15s; }
+button:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--tinta); }
+.chip.ya { animation: pop .35s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } }
+.bar { height: 10px; background: var(--kertas); border: 2px solid var(--tinta); border-radius: 999px; overflow: hidden; margin-bottom: 12px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--hijau); transition: width .4s; }
+footer { text-align: center; }
+.js section { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
+.js section.terlihat { opacity: 1; transform: none; }
+@media (max-width: 520px) { header { padding: 32px 18px 28px; } nav a { padding: 4px 10px; font-size: .82rem; } }
 footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
@@ -151,9 +202,19 @@ footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
 <main>
 
 <header>
-  <h1>Peta Bilangan</h1>
+  <div class="melayang" aria-hidden="true">
+    <i style="--s:4rem;--x:70%;--y:6%;--d:0s">π</i>
+    <i style="--s:3rem;--x:88%;--y:48%;--d:1s">ℤ</i>
+    <i style="--s:5rem;--x:56%;--y:52%;--d:2s">√</i>
+    <i style="--s:3rem;--x:4%;--y:70%;--d:3s">ℚ</i>
+    <i style="--s:3.5rem;--x:40%;--y:4%;--d:4s">i</i>
+  </div>
+  <h1>Peta <span>Bilangan</span></h1>
   <p>Semua bilangan punya "rumahnya" masing-masing. Ketuk kotak pada peta untuk melihat penjelasan, coba cek bilanganmu sendiri, lalu uji pemahamanmu lewat kuis.</p>
 </header>
+<nav aria-label="Navigasi bagian">
+  <a href="#peta">Peta</a><a href="#garis">Garis Bilangan</a><a href="#cek">Pengecek</a><a href="#kuis">Kuis</a><a href="#kelompok">Kelompok</a>
+</nav>
 
 <!-- 1. PETA -->
 <section id="peta">
@@ -233,12 +294,32 @@ footer { margin-top: 64px; font-size: .9rem; color: #4a5878; }
 <section id="kuis">
   <h2>4. Kuis singkat</h2>
   <div class="kuis">
+    <div class="bar"><i id="bar"></i></div>
     <div class="skor" id="skor"></div>
     <p id="soal" style="font-size:1.15rem;margin:8px 0 0"></p>
     <div class="opsi" id="opsi"></div>
     <p id="umpan" class="catatan"></p>
     <button id="btnLanjut" style="display:none;margin-top:8px">Soal berikutnya</button>
   </div>
+</section>
+
+<section class="kelompok" id="kelompok">
+  <div class="kel-kepala">
+    <div class="kel-no" aria-hidden="true">3</div>
+    <div>
+      <h2>Kelompok 3 Kalkulus</h2>
+      <p>Penyusun media pembelajaran Jenis-jenis Bilangan</p>
+    </div>
+    <span class="kel-jumlah">6 anggota</span>
+  </div>
+  <ol>
+    <li><div class="avatar" aria-hidden="true">MY</div><div class="orang"><b>M. Yoga Ramdanu</b><small>No. absen <span>222</span></small></div></li>
+    <li><div class="avatar" aria-hidden="true">SA</div><div class="orang"><b>Sekar Arumningtyas</b><small>No. absen <span>205</span></small></div></li>
+    <li><div class="avatar" aria-hidden="true">FA</div><div class="orang"><b>Fahmi Aditya</b><small>No. absen <span>216</span></small></div></li>
+    <li><div class="avatar" aria-hidden="true">DW</div><div class="orang"><b>Darrel Widyadhana Sasmita Kusuma</b><small>No. absen <span>237</span></small></div></li>
+    <li><div class="avatar" aria-hidden="true">RS</div><div class="orang"><b>Rafi Sadiyyi Zunnurain</b><small>No. absen <span>206</span></small></div></li>
+    <li><div class="avatar" aria-hidden="true">MF</div><div class="orang"><b>Muhammad Fazlur Rahman</b><small>No. absen <span>238</span></small></div></li>
+  </ol>
 </section>
 
 <footer>Media pembelajaran: Jenis-jenis Bilangan.</footer>
@@ -451,6 +532,7 @@ let idx = 0, skor = 0, terjawab = false;
 
 function tampilSoal() {
   terjawab = false;
+  document.getElementById("bar").style.width = (idx / SOAL.length * 100) + "%";
   const s = SOAL[idx];
   document.getElementById("skor").textContent = `Soal ${idx + 1} dari ${SOAL.length}   |   Skor: ${skor}`;
   document.getElementById("soal").textContent = s.q;
@@ -482,6 +564,7 @@ function jawab(i, tombol) {
 
 document.getElementById("btnLanjut").addEventListener("click", () => {
   if (idx < SOAL.length - 1) { idx++; tampilSoal(); return; }
+  document.getElementById("bar").style.width = "100%";
   document.getElementById("skor").textContent = `Selesai. Skor akhir: ${skor} dari ${SOAL.length}`;
   document.getElementById("soal").textContent = skor === SOAL.length ? "Sempurna! Kamu paham semua jenis bilangan." : "Coba ulangi dan lihat lagi peta di atas.";
   document.getElementById("opsi").innerHTML = "";
@@ -492,6 +575,28 @@ document.getElementById("btnLanjut").addEventListener("click", () => {
 });
 
 tampilSoal();
+
+/* Animasi muncul saat di-scroll */
+(function () {
+  const bagian = document.querySelectorAll("section");
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.documentElement.classList.add("js");
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("terlihat"); io.unobserve(e.target); } }), { threshold: 0.08 });
+  bagian.forEach(s => io.observe(s));
+})();
+
+/* Sorot menu sesuai bagian yang sedang dilihat */
+(function () {
+  const links = [...document.querySelectorAll("nav a")];
+  const peta = new Map(links.map(a => [a.getAttribute("href").slice(1), a]));
+  const tampil = id => links.forEach(a => a.classList.toggle("aktif", a === peta.get(id)));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) tampil(e.target.id); }), { rootMargin: "-30% 0px -60% 0px" });
+  peta.forEach((_, id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+  links.forEach(a => a.addEventListener("click", () => {
+    const el = document.getElementById(a.getAttribute("href").slice(1));
+    if (el) el.classList.add("terlihat");
+  }));
+})();
 </script>
 </body>
 </html>
